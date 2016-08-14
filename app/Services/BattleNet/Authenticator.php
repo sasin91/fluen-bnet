@@ -7,6 +7,7 @@ use App\Services\BattleNet\OAuth\AccessToken\Decorator;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use League\OAuth2\Client\Token\AccessToken;
 use Pwnraid\Bnet\OAuth;
 
 /**
@@ -60,6 +61,17 @@ class Authenticator
         $this->token = (new Decorator($this->auth))->from($request);
 
         return  $this;
+    }
+
+    /**
+     * Retrieves the raw AccessToken instance from our Decorator instance.
+     *
+     *
+     * @return AccessToken
+     */
+    public function accessToken() : AccessToken
+    {
+        return $this->token->accessToken();
     }
 
     /**

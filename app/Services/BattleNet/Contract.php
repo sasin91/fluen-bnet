@@ -24,7 +24,7 @@ interface Contract
      * @param string $client
      * @return AbstractClient
      */
-    public function client(string $client) : AbstractClient;
+    public function client($client) : AbstractClient;
 
     /**
      * Returns a League OAuth2 client
