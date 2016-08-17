@@ -27,12 +27,12 @@ trait BattleNetRouteServiceProviderTrait
             'namespace' => $this->namespace,
         ], function () {
             Route::get('/auth/battleNet', [
-                'as' => config('services.bnet.redirectUri', env('BATTLENET_API_REDIRECT')),
+                'as' => config('services.bnet.redirectUri', env('BATTLENET_API_REDIRECT', 'bnet::auth::redirect')),
                 'uses' => config('services.bnet.controller', env('BATTLENET_API_CONTROLLER', 'Auth\RegisterController@redirectToBattleNet'))
             ]);
 
             Route::get('/auth/battleNet/callback', [
-                'as' => config('services.bnet.callbackUri', env('BATTLENET_API_CALLBACK')),
+                'as' => config('services.bnet.callbackUri', env('BATTLENET_API_CALLBACK', 'bnet::auth::callback')),
                 'uses' => config('services.bnet.controller',env('BATTLENET_API_CONTROLLER', 'Auth\RegisterController@handleBattleNetCallback'))
             ]);
         });

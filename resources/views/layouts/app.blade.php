@@ -50,7 +50,7 @@
                     <!-- Authentication Links -->
                     @if (Auth::guest())
                         <li>
-                            <a href="{{ url('/auth/battleNet') }}">Authenticate</a>
+                            <a href="{{ route('bnet::auth::redirect', '/auth/battlNet') }}">Authenticate</a>
                         </li>
                     @else
                         <li class="dropdown">
