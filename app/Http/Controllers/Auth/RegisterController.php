@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Services\BattleNet\BattleNetControllerTrait;
+use App\Services\BattleNet\Traits\BattleNetControllerTrait;
 use App\User;
 use Validator;
 use App\Http\Controllers\Controller;

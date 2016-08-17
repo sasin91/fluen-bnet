@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Services\BattleNet;
+namespace App\Services\BattleNet\Traits;
+
 use Illuminate\Http\Request;
 use App\Services\BattleNet\Facades\BattleNet;
 
