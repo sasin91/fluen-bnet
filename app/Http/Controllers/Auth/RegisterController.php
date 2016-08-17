@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Services\BattleNet\Facades\BattleNet;
+use App\Services\BattleNet\BattleNetControllerTrait;
 use App\User;
-use Illuminate\Http\Request;
-use Pwnraid\Bnet\OAuth;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -23,7 +21,7 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers;
+    use RegistersUsers, BattleNetControllerTrait;
 
     /**
      * Where to redirect users after login / registration.
@@ -40,36 +38,6 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
-    }
-
-    /**
-     * Redirects to Battle.net for Authentication.
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function redirectToBattleNet()
-    {
-        return BattleNet::auth()->redirect();
-    }
-
-    /**
-     * Handles the success callback from Battle.net
-     *
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function handleBattleNetCallback(Request $request)
-    {
-        $user = BattleNet::auth()->handleCallback($request)->credentials();
-
-        $this->validator($user);
-
-        $this->guard()->login(
-            $this->create($user)
-        );
-
-        return redirect($this->redirectPath());
     }
 
     /**

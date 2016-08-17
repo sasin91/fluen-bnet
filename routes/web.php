@@ -14,8 +14,6 @@
 Route::get('/', 'WelcomeController@greet');
 
 //Route::auth();
-Route::get('/auth/battleNet', 'Auth\RegisterController@redirectToBattleNet');
-Route::get('/auth/battleNet/callback', 'Auth\RegisterController@handleBattleNetCallback');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', 'HomeController@welcome');

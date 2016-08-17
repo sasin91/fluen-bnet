@@ -35,8 +35,11 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
     'bnet' => [
-        'key'       =>  env('BATTLENET_API_KEY'),
-        'region'    =>  Pwnraid\Bnet\Region::EUROPE
+        'key'           =>  env('BATTLENET_API_KEY'),
+        'secret'        =>  env('BATTLENET_API_SECRET'),
+        'redirectUri'   =>  env('BATTLENET_API_REDIRECT', 'bnet::auth::redirect'),
+        'callbackUri'   =>  env('BATTLENET_API_CALLBACK', 'bnet::auth::callback'),
+        'region'        =>  Pwnraid\Bnet\Region::EUROPE
     ]
 
 ];

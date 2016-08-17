@@ -31,8 +31,7 @@ interface Contract
      * configured for battle.net
      *
      *
-     * @param array $options
      * @return Authenticator
      */
-    public function auth(array $options = []) : Authenticator;
+    public function auth() : Authenticator;
 }

@@ -66,14 +66,27 @@ class BattleNet implements Contract
      * configured for battle.net
      *
      *
-     * @param array $options
      * @return Authenticator
      */
-    public function auth(array $options = []) : Authenticator
+    public function auth() : Authenticator
     {
         return new Authenticator(
-            new OAuth($this->region, $options)
+            new OAuth($this->region, $this->authOptions())
         );
+    }
+
+    /**
+     * Returns the auth options.
+     *
+     * @return array
+     */
+    protected function authOptions() : array
+    {
+        return [
+            'clientId'      =>  config('services.bnet.key'),
+            'clientSecret'  =>  config('services.bnet.secret'),
+            'redirectUri'   =>  route('bnet::auth::callback')
+        ];
     }
 
     /**
