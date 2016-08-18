@@ -7,6 +7,7 @@ use App\Services\BattleNet\OAuth\AccessToken\Decorator;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use League\OAuth2\Client\Token\AccessToken;
 use Pwnraid\Bnet\OAuth;
 
@@ -55,12 +56,13 @@ class Authenticator
      *
      *
      * @param Request $request
+     * @return Authenticator
      */
     public function handleCallback(Request $request)
     {
         $this->token = (new Decorator($this->auth))->from($request);
 
-        return  $this;
+        return $this;
     }
 
     /**
@@ -75,26 +77,13 @@ class Authenticator
     }
 
     /**
-     * Returns a pre-populated User model instance.
+     * Retrieves the User details from the ResourceOwner instance.
      *
      *
-     * @return User
+     * @return Collection
      */
-    public function user() : User
+    public function details() : Collection
     {
-        return (new User)->fill(
-            $this->credentials()
-        );
-    }
-
-    /**
-     * Retrieves the User credentials from the ResourceOwner instance.
-     *
-     *
-     * @return array
-     */
-    public function credentials() : array
-    {
-        return $this->token->credentials();
+        return $this->token->details();
     }
 }

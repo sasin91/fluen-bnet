@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Services\BattleNet\Facades\BattleNet;
-use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 use League\OAuth2\Client\Token\AccessToken;
 use Pwnraid\Bnet\Warcraft\Client as WarcraftClient;
 
@@ -12,14 +13,21 @@ class HomeController extends Controller
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index() : View
+    {
+        return view('home', ['user' => Auth::user()]);
+    }
+
+    public function profile() : View
     {
         $client = $this->WoWClient();
         $characters = $client->characters()->user($this->AccessToken());
 
-        return view('home', compact('characters'));
+        // @TODO: Profile
+
+        return view('home.characters', compact('characters'));
     }
 
     /**

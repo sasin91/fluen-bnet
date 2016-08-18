@@ -2,8 +2,8 @@
 
 namespace App\Services\BattleNet\OAuth\AccessToken;
 
-
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use League\OAuth2\Client\Token\AccessToken;
 use Pwnraid\Bnet\OAuth;
@@ -92,11 +92,15 @@ class Decorator
      * Grabs the resource owner details
      *
      *
-     * @return array
+     * @return Collection
      */
-    public function credentials() : array
+    public function details() : Collection
     {
-        return $this->resourceOwner()->toArray();
+        return collect($array = $this->resourceOwner()->toArray())
+                ->put('uid', $array['id'])
+                ->put('battleTag', $array['battletag'])
+                ->forget('id')
+                ->forget('battletag');
     }
 
     /**

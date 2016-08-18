@@ -2,8 +2,12 @@
 
 namespace App\Services\BattleNet\Traits;
 
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Auth\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Services\BattleNet\Facades\BattleNet;
+use Illuminate\Support\Collection;
 
 /**
  * Class BattleNetControllerTrait
@@ -26,18 +30,29 @@ trait BattleNetControllerTrait
      *
      *
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function handleBattleNetCallback(Request $request)
+    public function handleBattleNetCallback(Request $request) : RedirectResponse
     {
-        $user = BattleNet::auth()->handleCallback($request)->credentials();
+        $details = BattleNet::auth()->handleCallback($request)->details();
+        $user = $this->lookupUser($details) ?: new User($details);
 
-        $this->validator($user);
-
-        $this->guard()->login(
-            $this->create($user)
-        );
+        $this->guard()->login($user);
 
         return redirect($this->redirectPath());
+    }
+
+    /**
+     * Looks up a User, if any.
+     *
+     *
+     * @param Collection $details
+     * @return mixed
+     */
+    private function lookupUser(Collection $details) : mixed
+    {
+        return User::where('uid', $details->get('uid'))
+            ->orWhere('battleTag', $details->get('battleTag'))
+            ->first();
     }
 }
