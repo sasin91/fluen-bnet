@@ -98,9 +98,9 @@ class BattleNet implements Contract
      */
     private function clientToMethod($client) : string
     {
-        return $this->client(last(
+        return last(
             explode('\\', (new \ReflectionClass($client))->getNamespaceName())
-        ));
+        );
     }
 
     /**
