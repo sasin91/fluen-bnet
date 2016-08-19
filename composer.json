@@ -5,6 +5,12 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "type": "project",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://spark-satis.laravel.com"
+        }
+    ],
     "require": {
         "php": ">=7.0.4",
         "laravel/framework": "5.3.*",

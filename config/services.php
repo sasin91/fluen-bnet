@@ -35,6 +35,7 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
     'bnet' => [
+        'model'         =>  \App\User::class,
         'key'           =>  env('BATTLENET_API_KEY'),
         'secret'        =>  env('BATTLENET_API_SECRET'),
         'redirectUri'   =>  env('BATTLENET_API_REDIRECT', 'bnet::auth::redirect'),

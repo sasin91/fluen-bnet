@@ -17,9 +17,12 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->integer('uid')->unique();
             $table->string('battleTag')->unique();
-            $table->string('name');
+            $table->string('name')->default('');
+            $table->string('email')->default('');
             $table->rememberToken();
             $table->timestamps();
+
+            $table->primary(['uid', 'id']);
         });
     }
 

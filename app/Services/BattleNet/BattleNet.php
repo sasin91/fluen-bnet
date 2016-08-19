@@ -98,20 +98,9 @@ class BattleNet implements Contract
      */
     private function clientToMethod($client) : string
     {
-        $reflection = new \ReflectionClass($client);
-
-        $candidate = null;
-
-        if ($reflection->hasConstant('API'))
-        {
-            $candidate = $reflection->getConstant('API');
-        } else {
-            $candidate = last(
-                explode('\\', $reflection->getNamespaceName())
-            );
-        }
-
-        return $this->client($candidate);
+        return $this->client(last(
+            explode('\\', (new \ReflectionClass($client))->getNamespaceName())
+        ));
     }
 
     /**

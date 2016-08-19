@@ -2,11 +2,18 @@
 
 namespace App\Services\BattleNet\Traits;
 
-use Illuminate\Contracts\View\View;
-use Illuminate\Foundation\Auth\User;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Model;
+
+use Illuminate\Foundation\Auth\User as FoundationUser;
+use App\User;
+
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+
 use App\Services\BattleNet\Facades\BattleNet;
+
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
 
 /**
@@ -35,24 +42,38 @@ trait BattleNetControllerTrait
     public function handleBattleNetCallback(Request $request) : RedirectResponse
     {
         $details = BattleNet::auth()->handleCallback($request)->details();
-        $user = $this->lookupUser($details) ?: new User($details);
+        $user = $this->lookupUser($details) ?: $this->user()->create($details->toArray());
 
         $this->guard()->login($user);
+        $request->session()->regenerate();
 
-        return redirect($this->redirectPath());
+        return redirect()->intended($this->redirectPath());
     }
 
     /**
-     * Looks up a User, if any.
+     * Looks up a User.
      *
      *
      * @param Collection $details
-     * @return mixed
+     * @return mixed|null
      */
-    private function lookupUser(Collection $details) : mixed
+    private function lookupUser(Collection $details)
     {
-        return User::where('uid', $details->get('uid'))
+        return $this->user()->where('uid', $details->get('uid'))
             ->orWhere('battleTag', $details->get('battleTag'))
             ->first();
+    }
+
+    /**
+     * returns App\User if available
+     * else resorts to Foundation\Auth\User
+     *
+     *
+     * @return FoundationUser|Model|Notifiable|Authenticatable
+     */
+    private function user() : Authenticatable
+    {
+        $model = config('services.bnet.model', FoundationUser::class);
+        return new $model;
     }
 }

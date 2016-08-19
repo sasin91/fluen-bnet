@@ -51,6 +51,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'uid'       =>  'required|integer|unique:users',
             'battleTag' =>  'required|max:255|unique:users',
+            'email'     =>  'required|max:255|unique:users',
             'name'      =>  'required|max:255',
         ]);
     }
@@ -66,6 +67,7 @@ class RegisterController extends Controller
         return User::create([
             'uid'       =>  $data['uid'],
             'battleTag' =>  $data['battleTag'],
+            'email'     =>  $data['email'],
             'name'      =>  $data['name']
         ]);
     }
