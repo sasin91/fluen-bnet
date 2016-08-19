@@ -15,6 +15,14 @@ Route::get('/', 'WelcomeController@greet');
 
 //Route::auth();
 
+Route::get('login', function () {
+   return redirect()->route('bnet::auth::redirect');
+});
+
+Route::get('register', function () {
+    return response("Registration disabled, please login and proceed from there.", 401);
+});
+
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', 'HomeController@welcome');
 });

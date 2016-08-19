@@ -184,7 +184,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Services\BattleNet\BattleNetServiceProvider::class,
-        UxWeb\SweetAlert\SweetAlertServiceProvider::class
+        UxWeb\SweetAlert\SweetAlertServiceProvider::class,
+        \Laravel\Passport\PassportServiceProvider::class
     ],
 
     /*

@@ -21,8 +21,6 @@ class CreateUsersTable extends Migration
             $table->string('email')->default('');
             $table->rememberToken();
             $table->timestamps();
-
-            $table->primary(['uid', 'id']);
         });
     }
 
