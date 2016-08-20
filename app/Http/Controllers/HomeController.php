@@ -14,6 +14,11 @@ class HomeController extends Controller
      */
     public function welcome() : View
     {
-        return view('home', ['user' => Auth::user()]);
+        return view('home.welcome', ['user' => Auth::user()]);
+    }
+
+    public function api() : View
+    {
+        return view('home.api.dashboard');
     }
 }

@@ -8,6 +8,7 @@
 namespace App\Services\BattleNet;
 
 use Pwnraid\Bnet\Core\AbstractClient;
+use Pwnraid\Bnet\Region;
 
 
 /**
@@ -34,4 +35,12 @@ interface Contract
      * @return Authenticator
      */
     public function auth() : Authenticator;
+
+    /**
+     * Returns the current Region
+     *
+     *
+     * @return Region
+     */
+    public function region() : Region;
 }

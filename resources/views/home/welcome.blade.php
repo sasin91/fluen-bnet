@@ -8,9 +8,8 @@
                 <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
-                    <passport-clients></passport-clients>
-					<passport-authorized-clients></passport-authorized-clients>
-					<passport-personal-access-tokens></passport-personal-access-tokens>
+                    <home-user></home-user>
+                    <home-profile></home-profile>
                 </div>
             </div>
         </div>

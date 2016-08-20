@@ -4,6 +4,7 @@ namespace App\Services\BattleNet\OAuth\AccessToken;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use League\OAuth2\Client\Token\AccessToken;
 use Pwnraid\Bnet\OAuth;
@@ -44,9 +45,23 @@ class Decorator
      */
     public function from(Request $request) : Decorator
     {
-        $this->accessToken = $this->OAuth->getAccessToken('authorization_code', [
-            'code' => $request->code
-        ]);
+        $this->setAuthCode($request->code);
+
+        return $this;
+    }
+
+    /**
+     * Generates an AccessToken from a authorization_code.
+     *
+     *
+     * @param string $code
+     * @return $this
+     */
+    public function setAuthCode(string $code)
+    {
+        $this->accessToken = $this->OAuth->getAccessToken('authorization_code', compact('code'));
+        // jsonSerialize that returns an array.. Mmh k.
+        session()->put('bnet.accessToken', $this->accessToken->jsonSerialize());
 
         return $this;
     }
@@ -59,6 +74,14 @@ class Decorator
      */
     public function accessToken() : AccessToken
     {
+        if (!$this->accessToken)
+        {
+            if ($accessTokenParameters = session('bnet.accessToken'))
+            {
+                $this->accessToken = new AccessToken($accessTokenParameters);
+            }
+        }
+
         return $this->accessToken;
     }
 
@@ -70,7 +93,7 @@ class Decorator
      */
     public function expired() : bool
     {
-        return $this->accessToken->hasExpired();
+        return $this->accessToken()->hasExpired();
     }
 
     /**
@@ -82,7 +105,7 @@ class Decorator
     public function refresh() : Decorator
     {
         $this->accessToken = $this->OAuth->getAccessToken('refresh_token', [
-            'refresh_token' => $this->accessToken->getRefreshToken()
+            'refresh_token' => $this->accessToken()->getRefreshToken()
         ]);
 
         return $this;

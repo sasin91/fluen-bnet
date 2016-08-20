@@ -5,6 +5,7 @@ namespace App\Services\BattleNet\Facades;
 use App\Services\BattleNet\Contract;
 use App\Services\BattleNet\Authenticator;
 use Pwnraid\Bnet\Core\AbstractClient;
+use Pwnraid\Bnet\Region;
 use Illuminate\Support\Facades\Facade as IlluminateFacade;
 
 /**
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Facade as IlluminateFacade;
  *
  *
  * @method static Authenticator auth()
+ * @method static Region region()
  * @method static AbstractClient client(string $client)
  */
 class BattleNet extends IlluminateFacade

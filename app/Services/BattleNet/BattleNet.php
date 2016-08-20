@@ -76,6 +76,17 @@ class BattleNet implements Contract
     }
 
     /**
+     * Returns the current Region
+     *
+     *
+     * @return Region
+     */
+    public function region() : Region
+    {
+        return $this->region;
+    }
+
+    /**
      * Returns the auth options.
      *
      * @return array

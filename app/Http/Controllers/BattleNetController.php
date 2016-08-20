@@ -67,7 +67,7 @@ class BattleNetController extends Controller
      *
      * @return AccessToken
      */
-    protected function AccessToken() : AccessToken
+    protected function AccessToken()
     {
         return BattleNet::auth()->accessToken();
     }

@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Session;
 use League\OAuth2\Client\Token\AccessToken;
 use Pwnraid\Bnet\OAuth;
 
@@ -36,6 +37,7 @@ class Authenticator
     public function __construct(OAuth $auth)
     {
         $this->auth = $auth;
+        $this->token = new Decorator($auth);
     }
 
     /**
@@ -60,9 +62,17 @@ class Authenticator
      */
     public function handleCallback(Request $request)
     {
-        $this->token = (new Decorator($this->auth))->from($request);
+        $this->token->from($request);
 
         return $this;
+    }
+
+    /**
+     * @return OAuth
+     */
+    public function OAuth() : OAuth
+    {
+        return $this->auth;
     }
 
     /**
