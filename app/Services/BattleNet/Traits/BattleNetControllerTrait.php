@@ -42,7 +42,7 @@ trait BattleNetControllerTrait
     public function handleBattleNetCallback(Request $request) : RedirectResponse
     {
         $details = BattleNet::auth()->handleCallback($request)->details();
-        $user = $this->lookupUser($details) ?: $this->user()->create($details->toArray());
+        $user = $this->lookupUser($details) ?: $this->createUser($details);
 
         $this->guard()->login($user);
         $request->session()->regenerate();
@@ -62,6 +62,12 @@ trait BattleNetControllerTrait
         return $this->user()->where('uid', $details->get('uid'))
             ->orWhere('battleTag', $details->get('battleTag'))
             ->first();
+    }
+
+    private function createUser(Collection $details)
+    {
+        $details->wasCreatedWithBattleNet = true;
+        return $this->user()->create($details->toArray());
     }
 
     /**

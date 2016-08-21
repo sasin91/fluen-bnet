@@ -49,8 +49,22 @@
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
                     @if (Auth::guest())
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                Login <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="{{ url('/login') }}">With credentials</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('bnet::auth::redirect') }}">With BattleNet</a>
+                                </li>
+                            </ul>
+                        </li>
+
                         <li>
-                            <a href="{{ route('bnet::auth::redirect', '/auth/battlNet') }}">Authenticate</a>
+                            <a href="{{ url('/register') }}">Register</a>
                         </li>
                     @else
                         <li class="dropdown">

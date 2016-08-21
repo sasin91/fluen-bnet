@@ -59,9 +59,25 @@ class Decorator
      */
     public function setAuthCode(string $code)
     {
-        $this->accessToken = $this->OAuth->getAccessToken('authorization_code', compact('code'));
+        $this->setAccessToken(
+            $this->OAuth->getAccessToken('authorization_code', compact('code'))
+        );
         // jsonSerialize that returns an array.. Mmh k.
         session()->put('bnet.accessToken', $this->accessToken->jsonSerialize());
+
+        return $this;
+    }
+
+    /**
+     * Sets the AccessToken
+     *
+     *
+     * @param AccessToken $token
+     * @return $this
+     */
+    public function setAccessToken(AccessToken $token)
+    {
+        $this->accessToken = $token;
 
         return $this;
     }
@@ -78,7 +94,9 @@ class Decorator
         {
             if ($accessTokenParameters = session('bnet.accessToken'))
             {
-                $this->accessToken = new AccessToken($accessTokenParameters);
+                $this->setAccessToken(
+                    new AccessToken($accessTokenParameters)
+                );
             }
         }
 
@@ -104,9 +122,11 @@ class Decorator
      */
     public function refresh() : Decorator
     {
-        $this->accessToken = $this->OAuth->getAccessToken('refresh_token', [
-            'refresh_token' => $this->accessToken()->getRefreshToken()
-        ]);
+        $this->setAccessToken(
+            $this->OAuth->getAccessToken('refresh_token', [
+                'refresh_token' => $this->accessToken()->getRefreshToken()
+            ])
+        );
 
         return $this;
     }

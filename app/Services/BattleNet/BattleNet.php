@@ -68,7 +68,7 @@ class BattleNet implements Contract
      *
      * @return Authenticator
      */
-    public function auth() : Authenticator
+    public function auth()
     {
         return new Authenticator(
             new OAuth($this->region, $this->authOptions())

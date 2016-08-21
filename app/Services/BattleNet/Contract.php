@@ -34,7 +34,7 @@ interface Contract
      *
      * @return Authenticator
      */
-    public function auth() : Authenticator;
+    public function auth();
 
     /**
      * Returns the current Region
