@@ -13,9 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('user', 'Api\UserController@me');
-Route::delete('user', 'Api\UserController@destroy');
-Route::match(['PUT','PATCH'], 'user', 'Api\UserController@update');
+Route::resource('user', 'Api\UserController');
 
 Route::group(['namespace' => 'Api\Home', 'prefix' => 'home'], function () {
     Route::get('wow/characters', 'WarcraftController@getCharacters');

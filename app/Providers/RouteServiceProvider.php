@@ -2,13 +2,11 @@
 
 namespace App\Providers;
 
-use App\Services\BattleNet\Traits\BattleNetRouteServiceProviderTrait;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    use BattleNetRouteServiceProviderTrait;
     /**
      * This namespace is applied to your controller routes.
      *
@@ -40,8 +38,6 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapWebRoutes();
 
         $this->mapApiRoutes();
-
-        $this->mapBattleNetRoutes();
 
         //
     }

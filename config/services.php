@@ -34,13 +34,11 @@ return [
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
-    'bnet' => [
+    'BattleNet' => [
         'model'         =>  \App\User::class,
-        'key'           =>  env('BATTLENET_API_KEY'),
-        'secret'        =>  env('BATTLENET_API_SECRET'),
-        'redirectUri'   =>  env('BATTLENET_API_REDIRECT', 'bnet::auth::redirect'),
-        'callbackUri'   =>  env('BATTLENET_API_CALLBACK', 'bnet::auth::callback'),
-        'region'        =>  Pwnraid\Bnet\Region::EUROPE
+        'client_id'     =>  env('BATTLENET_API_KEY'),
+        'client_secret' =>  env('BATTLENET_API_SECRET'),
+        'redirect'      =>  env('BATTLENET_API_CALLBACK', '/auth/battleNet/callback')
     ]
 
 ];

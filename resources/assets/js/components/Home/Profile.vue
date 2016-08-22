@@ -23,16 +23,18 @@
 
                 <table class="table table-borderless m-b-none" v-if="characters.length > 0">
                     <thead>
-                    <th>character ID</th>
+                    <th>Avatar</th>
                     <th>Name</th>
-                    <th>Secret</th>
+                    <th>Realm</th>
+                    <th>Level</th>
+                    <th>Guild</th>
                     </thead>
 
                     <tbody>
                     <tr v-for="character in characters">
                         <!-- Avatar -->
                         <td style="vertical-align: middle;">
-                            <img src="http://render-api-eu.worldofwarcraft.com/static-render/eu/{{ character.avatar }}" class="img-responsive" alt="Avatar">
+                            <img src="http://render-api-eu.worldofwarcraft.com/static-render/eu/{{ character.thumbnail }}" class="img-responsive" alt="Avatar">
                         </td>
 
                         <!-- Name -->
@@ -40,9 +42,19 @@
                             {{ character.name }}
                         </td>
 
-                        <!-- Secret -->
-                        <td realm="vertical-align: middle;">
-                            <code>{{ character.realm }}</code>
+                        <!-- Realm -->
+                        <td style="vertical-align: middle;">
+                            {{ character.realm }}
+                        </td>
+
+                        <!-- Level -->
+                        <td style="vertical-align: middle;">
+                            {{ character.level }}
+                        </td>
+
+                        <!-- Guild -->
+                        <td style="vertical-align: middle;">
+                            {{ character.guild }}
                         </td>
                     </tr>
                     </tbody>
@@ -67,18 +79,48 @@
          * Prepare the component.
          */
         ready() {
+            this.getAccessToken();
+
+            Vue.http.interceptors.push(function(request, next){
+                var token;
+
+                token = localStorage.getItem('access_token');
+                if ( token !== null && token !== 'undefined') {
+                    Vue.http.headers.common['Authorization'] = token;
+                }
+
+                next(function (response) {
+                    if (response.status && response.status.code == 401) {
+                        localStorage.removeItem('access_token');
+                    }
+                    if (response.headers && response.headers.Authorization) {
+                        localStorage.setItem('access_token', response.headers.Authorization)
+                    }
+                    if (response.data && response.data.token && response.data.token.length > 10) {
+                        localStorage.setItem('access_token', 'Bearer ' + response.data.token);
+                    }
+                })
+            });
+
             this.getCharacters();
         },
 
         methods: {
 
+            getAccessToken() {
+              this.$http.get('/auth/battleNet/token')
+                      .then(response => {
+                          localStorage.setItem('access_token', response.data);
+                      });
+            },
+
             /**
              * Get all of the OAuth characters for the user.
              */
             getCharacters() {
-                this.$http.get('/api/home/wow/characters')
+                this.$http.get('https://eu.api.battle.net/wow/user/characters', {params: { access_token: localStorage.getItem('access_token') }})
                         .then(response => {
-                            this.characters = response.data;
+                            this.characters = response.data.characters;
                         });
             }
         }

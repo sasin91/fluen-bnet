@@ -45,11 +45,15 @@ class BattleNetTest extends TestCase
 
     public function testCanAuthenticateAgainstBattleNet()
     {
+        $credentials = collect($this->credentials());
+
         BattleNet::shouldReceive('auth->handleCallback')->andReturn(
             Mockery::mock(Decorator::class)
                 ->shouldReceive('details')
-                ->andReturn(collect($this->credentials()))
+                ->andReturn($credentials)
         )->once();
+
+        BattleNet::shouldReceive('auth->details')->andReturn($credentials);
 
         BattleNet::makePartial();
 

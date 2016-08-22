@@ -183,9 +183,11 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Services\BattleNet\BattleNetServiceProvider::class,
         UxWeb\SweetAlert\SweetAlertServiceProvider::class,
-        \Laravel\Passport\PassportServiceProvider::class
+        Laravel\Passport\PassportServiceProvider::class,
+        SocialiteProviders\Generators\GeneratorsServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
+        \Spatie\Permission\PermissionServiceProvider::class
     ],
 
     /*
@@ -232,7 +234,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Alert' => UxWeb\SweetAlert\SweetAlert::class
+        'Alert' => UxWeb\SweetAlert\SweetAlert::class,
+        'Socialite' =>  \Laravel\Socialite\Facades\Socialite::class
     ],
 
 ];

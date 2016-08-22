@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Services\BattleNet\Traits\BattleNetControllerTrait;
 use App\User;
+use Laravel\Socialite\Facades\Socialite;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -21,7 +22,7 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers, BattleNetControllerTrait;
+    use RegistersUsers;
 
     /**
      * Where to redirect users after login / registration.

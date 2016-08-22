@@ -8,7 +8,6 @@
                 <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
-                    <home-user></home-user>
                     <home-profile></home-profile>
                 </div>
             </div>

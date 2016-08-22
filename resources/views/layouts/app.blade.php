@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
 
     <!-- Scripts -->
     <script>
@@ -58,7 +59,7 @@
                                     <a href="{{ url('/login') }}">With credentials</a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('bnet::auth::redirect') }}">With BattleNet</a>
+                                    <a href="{{ url('/auth/battleNet') }}">With BattleNet</a>
                                 </li>
                             </ul>
                         </li>
@@ -101,5 +102,9 @@
 
     <!-- Scripts -->
     <script src="/js/app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+
+    <!-- Include this after the sweet alert js file -->
+    @include('sweet::alert')
 </body>
 </html>
