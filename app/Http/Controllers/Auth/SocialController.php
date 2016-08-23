@@ -43,7 +43,7 @@ abstract class SocialController extends Controller
      */
     public function __construct(Factory $socialite, Guard $guard)
     {
-        $this->socialite = $this->provider ? $socialite->driver($this->provider) : $socialite->getDefaultDriver();
+        $this->socialite = $socialite->driver($this->provider);
         $this->guard = $guard;
     }
 
