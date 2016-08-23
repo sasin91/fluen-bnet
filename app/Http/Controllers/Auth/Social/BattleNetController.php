@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Auth\Social;
 
+use App\BattleNet\Character;
+use App\BattleNet\CharacterSpec;
 use App\Http\Controllers\Auth\SocialController;
 use App\User;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -54,7 +56,7 @@ class BattleNetController extends SocialController
     {
         return session()->get('Socialite.BattleNet.AccessToken');
     }
-    
+
     /**
      * Looks up or creates a User.
      *
@@ -68,7 +70,24 @@ class BattleNetController extends SocialController
         return User::firstOrCreate([
             'uid'       =>  $user->getId(),
             'battleTag' =>  $user->getNickname()
-        ]);
+        ])->BattleNetCharacters()->saveMany(
+            collect($user['characters'])->transform(function (array $attributes) {
+                if (array_key_exists('lastModified', $attributes))
+                {
+                    // remove the last three 0's by dividing by a thousand..
+                    // this is due to Blizzards API returning in ms since unix epoch.
+                    // @ref: http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap04.html#tag_04_15
+                    $attributes['lastModified'] = $attributes['lastModified'] / 1000;
+                }
+
+                if (array_key_exists('spec', $attributes))
+                {
+                    $attributes['spec'] = CharacterSpec::firstOrCreate($attributes['spec']);
+                }
+
+                return new Character($attributes);
+            })
+        );
     }
 
 }
