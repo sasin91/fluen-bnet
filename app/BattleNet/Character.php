@@ -101,9 +101,9 @@ class Character extends Model
      * @inheritdoc
      */
     protected $casts = [
-        'class'             =>  'integer',
-        'race'              =>  'integer',
-        'gender'            =>  'integer',
+        'class'             =>  'string',
+        'race'              =>  'string',
+        'gender'            =>  'string',
         'level'             =>  'integer',
         'spec'              =>  'object',
         'achievementPoints' =>  'integer',
@@ -123,7 +123,7 @@ class Character extends Model
      */
     public function spec()
     {
-        return $this->belongsToMany(CharacterSpec::class, 'bnet_character_pivot_specs');
+        return $this->belongsToMany(CharacterSpec::class);
     }
 
     public function setSpecAttribute(CharacterSpec $characterSpec)
@@ -132,65 +132,63 @@ class Character extends Model
     }
 
     /**
-     * Eloquent Attribute Accessor
-     *
-     *
-     * @param int $race
-     * @return string
-     */
-    public function getRaceAttribute(int $race) : string
-    {
-        return array_get($this->races, $race, 'Unknown');
-    }
-
-    /**
      * Eloquent Attribute mutator.
      *
      *
-     * @param string $race
+     * @param string|int $race
      */
-    public function setRaceAttribute(string $race)
+    public function setRaceAttribute($race)
     {
-        if (! is_numeric($race))
+        if (is_numeric($race))
         {
-            $race = array_search($race, $this->races) ?: 0;
+            $race = $this->valueOrFirstOf($this->races, $race);
         }
 
         $this->attributes['race'] = $race;
     }
 
-    public function getClassAttribute(int $class) : string
-    {
-        return array_get($this->classes, $class, 'Unknown');
-    }
-
     public function setClassAttribute($class)
     {
-        if (! is_numeric($class))
+        if (is_numeric($class))
         {
-            $class = array_search($class, $this->classes) ?: 0;
+            $class = $this->valueOrFirstOf($this->classes, $class);
         }
 
         $this->attributes['class'] = $class;
     }
 
-    public function getGenderAttribute(int $gender) : string
-    {
-        return array_get($this->genders, $gender, 'Unknown');
-    }
-
     public function setGenderAttribute($gender)
     {
-        if (! is_numeric($gender))
+        if (is_numeric($gender))
         {
-            $gender = array_search($gender, $this->genders) ?: 'Unknown';
+            $gender = $this->valueOrFirstOf($this->genders, $gender);
         }
 
         $this->attributes['gender'] = $gender;
     }
 
+    /**
+     * Appends the missing part of the given uri.
+     *
+     * @todo validate url
+     * @param string $uri
+     */
     public function setThumbnailAttribute(string $uri)
     {
         $this->attributes['thumbnail'] = "http://render-api-eu.worldofwarcraft.com/static-render/eu/$uri";
+    }
+
+    /**
+     * Returns the value corresponding to given key
+     * or first of given array.
+     *
+     *
+     * @param array $array
+     * @param string|int $key
+     * @return string
+     */
+    protected function valueOrFirstOf(array $array, $key) : string
+    {
+        return array_get($array, $key, reset($array));
     }
 }

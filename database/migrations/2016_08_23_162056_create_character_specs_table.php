@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBattleNetCharacterSpecsTable extends Migration
+class CreateCharacterSpecsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreateBattleNetCharacterSpecsTable extends Migration
      */
     public function up()
     {
-        Schema::create('battle_net_character_specs', function (Blueprint $table) {
+        Schema::create('character_specs', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('role');
@@ -31,6 +31,6 @@ class CreateBattleNetCharacterSpecsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('battle_net_character_specs');
+        Schema::drop('character_specs');
     }
 }
