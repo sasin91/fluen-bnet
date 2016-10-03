@@ -55,7 +55,7 @@ class Provider extends AbstractProvider implements ProviderInterface
      */
     protected function getUserByToken($token)
     {
-        $response = $this->getHttpClient()->get($this->region->apiUrl("account/user/id?access_token=$token"), [
+        $response = $this->getHttpClient()->get($this->region->apiUrl("account/user?access_token=$token"), [
             'headers' => [
                 'Authorization' => 'Bearer '.$token,
             ],
