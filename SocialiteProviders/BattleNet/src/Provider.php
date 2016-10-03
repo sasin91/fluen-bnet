@@ -61,7 +61,17 @@ class Provider extends AbstractProvider implements ProviderInterface
             ],
         ]);
 
-        return json_decode($response->getBody(), true);
+        $user = json_decode($response->getBody(), true);
+
+        $characters = $this->getHttpClient()->get($this->region->apiUrl("wow/user/characters?access_token=$token"), [
+            'headers' => [
+                'Authorization' => 'Bearer '.$token,
+            ],
+        ])->getBody();
+
+        $user['characters'] = json_decode($characters, true);
+
+        return $user;
     }
 
     /**
@@ -72,6 +82,7 @@ class Provider extends AbstractProvider implements ProviderInterface
         return (new User())->setRaw($user)->map([
             'id'       => $user['id'],
             'nickname' => $user['battletag'],
+            'characters' => $user['characters']
         ]);
     }
 
