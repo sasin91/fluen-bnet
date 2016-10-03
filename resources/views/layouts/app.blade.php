@@ -50,18 +50,8 @@
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
                     @if (! $user->exists)
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                Login <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li>
-                                    <a href="{{ url('/login') }}">With credentials</a>
-                                </li>
-                                <li>
-                                    <a href="{{ url('/auth/battleNet') }}">With BattleNet</a>
-                                </li>
-                            </ul>
+                        <li>
+                            <a href="{{ url('/login') }}">Login</a>
                         </li>
 
                         <li>

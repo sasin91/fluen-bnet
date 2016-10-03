@@ -60,6 +60,11 @@
                             </div>
                         </div>
                     </form>
+                    <div class="col-lg-12">
+                        <div class="btn-group-vertical">
+                            <a href="{{ url('/auth/battleNet') }}" type="button" class="btn btn-default">Login with Battle.Net</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
