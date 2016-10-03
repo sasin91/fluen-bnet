@@ -19,7 +19,7 @@
 
                                 <div class="col-md-7">
                                     <input id="edit-user-name" type="text" class="form-control"
-                                           @keyup.enter="store" v-model="userForm.name">
+                                           v-model="userForm.name">
 
                                     <span class="help-block">
                                         Your name.
@@ -33,7 +33,7 @@
 
                                 <div class="col-md-7">
                                     <input type="text" class="form-control" name="email"
-                                           @keyup.enter="store" v-model="userForm.email">
+                                            v-model="userForm.email">
 
                                     <span class="help-block">
                                         Your email.
@@ -47,7 +47,7 @@
 
                                 <div class="col-md-7">
                                     <input type="password" class="form-control" name="password"
-                                           @keyup.enter="store" v-model="userForm.password">
+                                            v-model="userForm.password">
 
                                     <span class="help-block">
                                         Password
@@ -61,7 +61,7 @@
 
                                 <div class="col-md-7">
                                     <input type="password" class="form-control" name="password_confirmation"
-                                           @keyup.enter="store" v-model="userForm.password_confirmation">
+                                           v-model="userForm.password_confirmation">
 
                                     <span class="help-block">
                                         Password
