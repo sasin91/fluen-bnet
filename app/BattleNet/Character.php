@@ -4,6 +4,7 @@ namespace App\BattleNet;
 
 use App\User;
 use Illuminate\Database\Eloquent\Model;
+use SocialiteProviders\BattleNet\Region;
 
 class Character extends Model
 {
@@ -170,12 +171,19 @@ class Character extends Model
     /**
      * Appends the missing part of the given uri.
      *
-     * @todo validate url
      * @param string $uri
      */
     public function setThumbnailAttribute(string $uri)
     {
-        $this->attributes['thumbnail'] = "http://render-api-eu.worldofwarcraft.com/static-render/eu/$uri";
+        $this->attributes['thumbnail'] = filter_var($uri, FILTER_VALIDATE_URL) ?: $this->region()->avatarUrl($uri);
+    }
+
+    /**
+     * @return Region
+     */
+    protected function region()
+    {
+        return app('BattleNet.Region');
     }
 
     /**

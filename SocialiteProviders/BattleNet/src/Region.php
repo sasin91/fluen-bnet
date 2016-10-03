@@ -40,6 +40,7 @@ class Region
             'hosts' => [
                 'api' => 'https://www.battlenet.com.cn/%s/',
                 'oauth' => 'https://cn.battle.net/oauth/%s',
+                'avatar' => 'https://render-api-cn.worldofwarcraft.com/static-render/cn'
             ],
         ],
         self::EUROPE => [
@@ -47,6 +48,7 @@ class Region
             'hosts' => [
                 'api' => 'https://eu.api.battle.net/%s/',
                 'oauth' => 'https://eu.battle.net/oauth/%s',
+                'avatar' => 'https://render-api-eu.worldofwarcraft.com/static-render/eu/%s'
             ],
         ],
         self::KOREA => [
@@ -54,6 +56,7 @@ class Region
             'hosts' => [
                 'api' => 'https://kr.api.battle.net/%s/',
                 'oauth' => 'https://kr.battle.net/oauth/%s',
+                'avatar' => 'https://render-api-cn.worldofwarcraft.com/static-render/cn/%s'
             ],
         ],
         self::TAIWAN => [
@@ -61,6 +64,7 @@ class Region
             'hosts' => [
                 'api' => 'https://tw.api.battle.net/%s/',
                 'oauth' => 'https://tw.battle.net/oauth/%s',
+                'avatar' => 'https://render-api-tw.worldofwarcraft.com/static-render/tw/%s'
             ],
         ],
         self::US => [
@@ -68,9 +72,11 @@ class Region
             'hosts' => [
                 'api' => 'https://us.api.battle.net/%s/',
                 'oauth' => 'https://us.battle.net/oauth/%s',
+                'avatar' => 'https://render-api-us.worldofwarcraft.com/static-render/us/%s'
             ],
         ],
     ];
+
     /**
      * @var string
      */
@@ -113,7 +119,7 @@ class Region
      */
     public function apiUrl(string $uri)
     {
-        return sprintf($this->region['hosts']['api'], $uri);
+        return sprintf($this->url('api'), $uri);
     }
 
     /**
@@ -123,8 +129,29 @@ class Region
      */
     public function oAuthUrl(string $uri)
     {
-        return sprintf($this->region['hosts']['oauth'], $uri);
+        return sprintf($this->url('oauth'), $uri);
     }
+
+    /**
+     * @param string $uri
+     *
+     * @return string
+     */
+    public function avatarUrl(string $uri)
+    {
+        return sprintf($this->url('avatar'), $uri);
+    }
+
+    /**
+     * @param string $path
+     *
+     * @return mixed
+     */
+    protected function url(string $path)
+    {
+        return array_get($this->region, "hosts.$path");
+    }
+
     /**
      * @return string
      */

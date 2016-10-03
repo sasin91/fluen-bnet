@@ -20,17 +20,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->app->bind(CacheItemPoolInterface::class, function () {
-            $repository = $this->app->make(Repository::class);
+        $config = config('services.BattleNet', []);
 
-            return new CacheItemPool($repository);
+        $this->app->bind('BattleNet.Region', function () use($config) {
+            return new Region($config['region']);
         });
 
-        $socialite = $this->socialite();
-        $socialite->extend('BattleNet', function ($app) use($socialite) {
-            $config = config('services.BattleNet', []);
+        $this->socialite()->extend('BattleNet', function ($app) use($config) {
             $config['redirect'] = secure_url($config['redirect']);
-            return $socialite->buildProvider(BattleNetProvider::class, $config)->region(new Region($config['region']));
+
+            return $this->socialite()->buildProvider(BattleNetProvider::class, $config)->region($app['BattleNet.Region']);
         });
     }
 
