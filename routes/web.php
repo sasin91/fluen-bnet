@@ -21,7 +21,7 @@ Route::get('auth/battleNet/token', 'Auth\Social\BattleNetController@getProviderT
 
 Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'home'], function () {
-        Route::get('/', 'HomeController@welcome');
+        Route::get('/', 'HomeController@welcome')->name('home');
         Route::get('/api', 'HomeController@api');
     });
 });

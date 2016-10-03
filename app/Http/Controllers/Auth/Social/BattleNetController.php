@@ -34,7 +34,7 @@ class BattleNetController extends SocialController
 
         $request->session()->regenerate();
 
-        return redirect()->intended('/home');
+        return redirect()->home();
     }
 
     /**
@@ -63,31 +63,38 @@ class BattleNetController extends SocialController
      * @param SocialiteUser $user
      * @return Authenticatable
      */
-    protected function lookupOrCreateUserFrom(SocialiteUser $user)
+    protected function lookupOrCreateUserFrom(SocialiteUser $abstractUser)
     {
-        session()->put('Socialite.BattleNet.AccessToken', $user->token);
+        session()->put('Socialite.BattleNet.AccessToken', $abstractUser->token);
 
-        return User::firstOrCreate([
-            'uid'       =>  $user->getId(),
-            'battleTag' =>  $user->getNickname()
-        ])->BattleNetCharacters()->saveMany(
-            collect($user['characters'])->transform(function (array $attributes) {
-                if (array_key_exists('lastModified', $attributes))
-                {
-                    // remove the last three 0's by dividing by a thousand..
-                    // this is due to Blizzards API returning in ms since unix epoch.
-                    // @ref: http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap04.html#tag_04_15
-                    $attributes['lastModified'] = $attributes['lastModified'] / 1000;
-                }
+        $user = User::firstOrCreate([
+            'uid'       =>  $abstractUser->getId(),
+            'battleTag' =>  $abstractUser->getNickname()
+        ]);
 
-                if (array_key_exists('spec', $attributes))
-                {
-                    $attributes['spec'] = CharacterSpec::firstOrCreate($attributes['spec']);
-                }
+        if (array_key_exists('characters', (array)$abstractUser))
+        {
+            $user->BattleNetCharacters()->saveMany(
+                collect($user['characters'])->transform(function (array $attributes) {
+                    if (array_key_exists('lastModified', $attributes))
+                    {
+                        // remove the last three 0's by dividing by a thousand..
+                        // this is due to Blizzards API returning in ms since unix epoch.
+                        // @ref: http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap04.html#tag_04_15
+                        $attributes['lastModified'] = $attributes['lastModified'] / 1000;
+                    }
 
-                return new Character($attributes);
-            })
-        );
+                    if (array_key_exists('spec', $attributes))
+                    {
+                        $attributes['spec'] = CharacterSpec::firstOrCreate($attributes['spec']);
+                    }
+
+                    return new Character($attributes);
+                })
+            );
+        }
+
+        return $user;
     }
 
 }

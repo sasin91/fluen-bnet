@@ -4,6 +4,12 @@ namespace App\BattleNet;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class CharacterSpec
+ * @package App\BattleNet
+ *
+ * @method static CharacterSpec firstOrCreate(array $attributes = []) @see Illuminate/Database/Eloquent/Builder
+ */
 class CharacterSpec extends Model
 {
     protected $fillable = [
