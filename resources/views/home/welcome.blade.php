@@ -30,33 +30,35 @@
                                     </thead>
 
                                     <tbody>
-                                        @foreach($user->characters as $character)
-                                            <tr>
-                                                <!-- Avatar -->
-                                                <td style="vertical-align: middle;">
-                                                    <img src="{{ $character->thumbnail }}" class="img-responsive" alt="Avatar">
-                                                </td>
+                                        @foreach($user->characters->groupBy('realm') as $realm => $characters)
+                                            @foreach($characters as $character)
+                                                <tr>
+                                                    <!-- Avatar -->
+                                                    <td style="vertical-align: middle;">
+                                                        <img src="{{ $character->thumbnail }}" class="img-responsive" alt="Avatar">
+                                                    </td>
 
-                                                <!-- Name -->
-                                                <td style="vertical-align: middle;">
-                                                    {{ $character->name }}
-                                                </td>
+                                                    <!-- Name -->
+                                                    <td style="vertical-align: middle;">
+                                                        {{ $character->name }}
+                                                    </td>
 
-                                                <!-- Realm -->
-                                                <td style="vertical-align: middle;">
-                                                    {{ $character->realm }}
-                                                </td>
+                                                    <!-- Realm -->
+                                                    <td style="vertical-align: middle;">
+                                                        {{ $character->realm }}
+                                                    </td>
 
-                                                <!-- Level -->
-                                                <td style="vertical-align: middle;">
-                                                    {{ $character->level }}
-                                                </td>
+                                                    <!-- Level -->
+                                                    <td style="vertical-align: middle;">
+                                                        {{ $character->level }}
+                                                    </td>
 
-                                                <!-- Guild -->
-                                                <td style="vertical-align: middle;">
-                                                    {{ $character->guild }}
-                                                </td>
-                                            </tr>
+                                                    <!-- Guild -->
+                                                    <td style="vertical-align: middle;">
+                                                        {{ $character->guild }}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         @endforeach
                                     </tbody>
                                 </table>

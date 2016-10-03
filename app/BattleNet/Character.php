@@ -94,6 +94,8 @@ class Character extends Model
         'level',
         'achievementPoints',
         'thumbnail',
+        "guild",
+        "guildRealm",
         'lastModified'
     ];
 
