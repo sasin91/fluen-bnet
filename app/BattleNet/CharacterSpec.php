@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class CharacterSpec
  * @package App\BattleNet
  *
- * @method static CharacterSpec firstOrCreate(array $attributes = []) @see Illuminate/Database/Eloquent/Builder
+ * @method static CharacterSpec firstOrNew(array $attributes = []) @see Illuminate/Database/Eloquent/Builder
  */
 class CharacterSpec extends Model
 {

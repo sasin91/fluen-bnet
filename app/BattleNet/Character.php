@@ -92,7 +92,6 @@ class Character extends Model
         'race',
         'gender',
         'level',
-        'spec',
         'achievementPoints',
         'thumbnail',
         'lastModified'
@@ -106,7 +105,6 @@ class Character extends Model
         'race'              =>  'string',
         'gender'            =>  'string',
         'level'             =>  'integer',
-        'spec'              =>  'object',
         'achievementPoints' =>  'integer',
         'lastModified'      =>  'timestamp'
     ];
@@ -125,11 +123,6 @@ class Character extends Model
     public function spec()
     {
         return $this->belongsToMany(CharacterSpec::class, 'character_spec_character');
-    }
-
-    public function setSpecAttribute(CharacterSpec $characterSpec)
-    {
-        $this->spec()->save($characterSpec);
     }
 
     /**

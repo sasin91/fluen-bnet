@@ -84,12 +84,14 @@ class BattleNetController extends SocialController
                         $attributes['lastModified'] = $attributes['lastModified'] / 1000;
                     }
 
+                    $character = new Character($attributes);
+
                     if (array_key_exists('spec', $attributes))
                     {
-                        $attributes['spec'] = CharacterSpec::firstOrCreate($attributes['spec']);
+                        $character->spec()->save(CharacterSpec::firstOrNew($attributes['spec']));
                     }
 
-                    return new Character($attributes);
+                    return $character;
                 })
             );
         }
