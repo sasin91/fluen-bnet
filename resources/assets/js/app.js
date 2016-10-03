@@ -13,7 +13,6 @@ require('./bootstrap');
  * the application, or feel free to tweak this setup for your needs.
  */
 
-Vue.component('home-profile', require('./components/Home/Profile.vue'));
 Vue.component('home-user', require('./components/Home/User.vue'));
 
 Vue.component('passport-clients', require('./components/passport/Clients.vue'));
