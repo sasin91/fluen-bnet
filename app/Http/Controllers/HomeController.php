@@ -15,7 +15,7 @@ class HomeController extends Controller
      */
     public function welcome(Request $request) : View
     {
-        $user = $request->user()->with('characters');
+        $user = $request->user()->load('characters');
 
         if (empty($user->email) || empty($user->name))
         {
