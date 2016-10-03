@@ -14,7 +14,3 @@ use Illuminate\Http\Request;
 */
 
 Route::resource('user', 'Api\UserController');
-
-Route::group(['namespace' => 'Api\Home', 'prefix' => 'home'], function () {
-    Route::get('wow/characters', 'WarcraftController@getCharacters');
-});

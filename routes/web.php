@@ -17,7 +17,6 @@ Route::auth();
 
 Route::get('auth/battleNet', 'Auth\Social\BattleNetController@redirectToProvider');
 Route::get('auth/battleNet/callback', 'Auth\Social\BattleNetController@handleProviderCallback');
-Route::get('auth/battleNet/token', 'Auth\Social\BattleNetController@getProviderToken');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'home'], function () {

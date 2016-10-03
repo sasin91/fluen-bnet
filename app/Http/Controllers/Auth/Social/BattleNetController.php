@@ -48,16 +48,6 @@ class BattleNetController extends SocialController
     }
 
     /**
-     * Retrieves the access_token of the current user.
-     *
-     * @return string
-     */
-    public function getProviderToken()
-    {
-        return session()->get('Socialite.BattleNet.AccessToken');
-    }
-
-    /**
      * Looks up or creates a User.
      *
      * @param SocialiteUser $user
@@ -65,8 +55,6 @@ class BattleNetController extends SocialController
      */
     protected function lookupOrCreateUserFrom(SocialiteUser $abstractUser)
     {
-        session()->put('Socialite.BattleNet.AccessToken', $abstractUser->token);
-
         $user = User::firstOrCreate([
             'uid'       =>  $abstractUser->getId(),
             'battleTag' =>  $abstractUser->getNickname()
