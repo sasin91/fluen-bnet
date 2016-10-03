@@ -69,7 +69,7 @@ class Provider extends AbstractProvider implements ProviderInterface
             ],
         ])->getBody();
 
-        $user['characters'] = json_decode($characters, true);
+        $user['characters'] = array_first(json_decode($characters, true));
 
         return $user;
     }

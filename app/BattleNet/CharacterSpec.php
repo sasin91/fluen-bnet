@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class CharacterSpec extends Model
 {
+    protected $table = 'character_specs';
+
     protected $fillable = [
         'name',
         'role',
@@ -29,7 +31,7 @@ class CharacterSpec extends Model
 
     public function character()
     {
-        return $this->belongsToMany(Character::class, 'bnet_character_pivot_specs');
+        return $this->belongsToMany(Character::class, 'character_spec_character');
     }
 
     public function setBackgroundImageAttribute(string $uri)

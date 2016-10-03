@@ -124,7 +124,7 @@ class Character extends Model
      */
     public function spec()
     {
-        return $this->belongsToMany(CharacterSpec::class);
+        return $this->belongsToMany(CharacterSpec::class, 'character_spec_character');
     }
 
     public function setSpecAttribute(CharacterSpec $characterSpec)
