@@ -11,7 +11,7 @@
     <title>Laravel</title>
 
     <!-- Styles -->
-    <link href="/css/app.css" rel="stylesheet">
+    <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
 
     <!-- Scripts -->
@@ -49,7 +49,7 @@
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
-                    @if (Auth::guest())
+                    @if (! $user->exists)
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                 Login <span class="caret"></span>
@@ -70,10 +70,10 @@
                     @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                Hi, @if(Auth::user()->name)
-                                        {{ Auth::user()->name }}
+                                Hi, @if($name = $user->name)
+                                        {{ $name }}
                                     @else
-                                        {{ Auth::user()->battleTag }}
+                                        {{ $user->battleTag }}
                                     @endif
                                     <span class="caret"></span>
                             </a>
@@ -101,8 +101,8 @@
     @yield('content')
 
     <!-- Scripts -->
-    <script src="/js/app.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+    <script src="{{ asset('/js/app.js') }}"></script>
+    <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js') }}"></script>
 
     <!-- Include this after the sweet alert js file -->
     @include('sweet::alert')

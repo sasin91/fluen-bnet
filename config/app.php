@@ -166,28 +166,28 @@ return [
         /*
          * Package Service Providers...
          */
-        \Intervention\Image\ImageServiceProviderLaravel5::class,
-        \Riari\Forum\ForumServiceProvider::class,
-        \Riari\Forum\Frontend\ForumFrontendServiceProvider::class,
+        Intervention\Image\ImageServiceProviderLaravel5::class,
+        Riari\Forum\ForumServiceProvider::class,
+        Riari\Forum\Frontend\ForumFrontendServiceProvider::class,
         //Torann\LocalizationHelpers\LocalizationHelpersServiceProvider::class,
-        \Torann\GeoIP\GeoIPServiceProvider::class,
-        \Snowfire\Beautymail\BeautymailServiceProvider::class,
-        \Laracasts\Flash\FlashServiceProvider::class,
-        \Elasticquent\ElasticquentServiceProvider::class,
-
-        /*
-         * Application Service Providers...
-         */
-        App\Providers\AppServiceProvider::class,
-        //App\Providers\BroadcastServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        Torann\GeoIP\GeoIPServiceProvider::class,
+        Snowfire\Beautymail\BeautymailServiceProvider::class,
+        Laracasts\Flash\FlashServiceProvider::class,
+        Elasticquent\ElasticquentServiceProvider::class,
         UxWeb\SweetAlert\SweetAlertServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
         SocialiteProviders\Generators\GeneratorsServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
-        \Spatie\Permission\PermissionServiceProvider::class
+        Spatie\Permission\PermissionServiceProvider::class,
+        /*
+         * Application Service Providers...
+         */
+        App\Providers\AppServiceProvider::class,
+        App\Providers\BroadcastServiceProvider::class,
+        App\Providers\AuthServiceProvider::class,
+        App\Providers\EventServiceProvider::class,
+        App\Providers\RouteServiceProvider::class,
+        App\Providers\ViewServiceProvider::class
     ],
 
     /*
