@@ -74,7 +74,7 @@ class BattleNetController extends SocialController
 
         if (array_key_exists('characters', (array)$abstractUser))
         {
-            $user->BattleNetCharacters()->saveMany(
+            $user->characters()->saveMany(
                 collect($user['characters'])->transform(function (array $attributes) {
                     if (array_key_exists('lastModified', $attributes))
                     {

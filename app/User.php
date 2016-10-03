@@ -36,7 +36,7 @@ class User extends Authenticatable
         'password', 'remember_token'
     ];
 
-    public function BattleNetCharacters()
+    public function characters()
     {
         return $this->belongsToMany(Character::class);
     }
