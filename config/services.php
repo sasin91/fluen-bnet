@@ -38,6 +38,7 @@ return [
         'model'         =>  \App\User::class,
         'client_id'     =>  env('BATTLENET_API_KEY'),
         'client_secret' =>  env('BATTLENET_API_SECRET'),
+        'region'        =>  env('BATTLENET_REGION', 'eu'),
         'redirect'      =>  env('BATTLENET_API_CALLBACK', '/auth/battleNet/callback')
     ]
 

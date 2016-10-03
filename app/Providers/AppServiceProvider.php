@@ -9,6 +9,7 @@ use Laravel\Socialite\SocialiteManager;
 use Madewithlove\IlluminatePsrCacheBridge\Laravel\CacheItemPool;
 use Psr\Cache\CacheItemPoolInterface;
 use SocialiteProviders\BattleNet\Provider as BattleNetProvider;
+use SocialiteProviders\BattleNet\Region;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
         $socialite->extend('BattleNet', function ($app) use($socialite) {
             $config = config('services.BattleNet', []);
             $config['redirect'] = secure_url($config['redirect']);
-            return $socialite->buildProvider(BattleNetProvider::class, $config);
+            return $socialite->buildProvider(BattleNetProvider::class, $config)->region(new Region($config['region']));
         });
     }
 
