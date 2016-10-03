@@ -75,7 +75,7 @@ class BattleNetController extends SocialController
         if (array_key_exists('characters', (array)$abstractUser))
         {
             $user->characters()->saveMany(
-                collect($user['characters'])->transform(function (array $attributes) {
+                collect($abstractUser['characters'])->transform(function (array $attributes) {
                     if (array_key_exists('lastModified', $attributes))
                     {
                         // remove the last three 0's by dividing by a thousand..
