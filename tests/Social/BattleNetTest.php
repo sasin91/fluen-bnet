@@ -8,22 +8,13 @@ use Illuminate\Contracts\Config\Repository as Config;
 
 class BattleNetTest extends TestCase
 {
+    use DatabaseMigrations, DatabaseTransactions;
+
     public function setUp()
     {
         parent::setUp();
 
-        $this->app[Config::class]->set('database.default', 'testing');
-        $this->app[Config::class]->set('database.connections.testing', [
-            'driver'   => 'sqlite',
-            'database' => ':memory:',
-            'prefix'   => '',
-        ]);
-
-        $this->artisan('migrate');
-
-        $this->beforeApplicationDestroyed(function () {
-            $this->artisan('migrate:rollback');
-        });
+        $this->runDatabaseMigrations();
     }
 
     public function test_a_user_can_signUp_with_BattleNet_through_Socialite()
