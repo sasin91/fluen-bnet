@@ -84,7 +84,7 @@ class BattleNetController extends SocialController
                         $attributes['lastModified'] = $attributes['lastModified'] / 1000;
                     }
 
-                    $character = new Character($attributes);
+                    $character = Character::create($attributes);
 
                     if (array_key_exists('spec', $attributes))
                     {

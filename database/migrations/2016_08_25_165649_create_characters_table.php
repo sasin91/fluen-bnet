@@ -20,6 +20,7 @@ class CreateCharactersTable extends Migration
             $table->string('class');
             $table->string('race');
             $table->string('gender');
+            $table->string('thumbnail')->default("http://wow.zamimg.com/uploads/screenshots/normal/303438-capn-placeholder.jpg");
             $table->integer('level');
             $table->integer('achievementPoints');
             $table->timestamp('lastModified');
