@@ -82,6 +82,13 @@ class BattleNetController extends SocialController
                         // this is due to Blizzards API returning in ms since unix epoch.
                         // @ref: http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap04.html#tag_04_15
                         $attributes['lastModified'] = $attributes['lastModified'] / 1000;
+
+                        // If it's a fresh character,
+                        // then just unset the lastModified date.
+                        if ($attributes['lastModified'] <= 0)
+                        {
+                            unset($attributes['lastModified']);
+                        }
                     }
 
                     $character = Character::create($attributes);
