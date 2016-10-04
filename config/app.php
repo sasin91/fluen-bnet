@@ -166,19 +166,30 @@ return [
         /*
          * Package Service Providers...
          */
+        Laravel\Passport\PassportServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
+        SocialiteProviders\Generators\GeneratorsServiceProvider::class,
+
+        //Laracasts\Flash\FlashServiceProvider::class,
+        UxWeb\SweetAlert\SweetAlertServiceProvider::class,
+
         Intervention\Image\ImageServiceProviderLaravel5::class,
+
         Riari\Forum\ForumServiceProvider::class,
         Riari\Forum\Frontend\ForumFrontendServiceProvider::class,
+
         //Torann\LocalizationHelpers\LocalizationHelpersServiceProvider::class,
         Torann\GeoIP\GeoIPServiceProvider::class,
+
         Snowfire\Beautymail\BeautymailServiceProvider::class,
-        Laracasts\Flash\FlashServiceProvider::class,
+
         Elasticquent\ElasticquentServiceProvider::class,
-        UxWeb\SweetAlert\SweetAlertServiceProvider::class,
-        Laravel\Passport\PassportServiceProvider::class,
-        SocialiteProviders\Generators\GeneratorsServiceProvider::class,
-        Laravel\Socialite\SocialiteServiceProvider::class,
+
         Spatie\Permission\PermissionServiceProvider::class,
+        Spatie\CollectionMacros\CollectionMacroServiceProvider::class,
+
+        Mpociot\LaravelTestFactoryHelper\TestFactoryHelperServiceProvider::class,
+
         /*
          * Application Service Providers...
          */
@@ -187,7 +198,6 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\ViewServiceProvider::class
     ],
 
     /*
