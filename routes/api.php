@@ -13,4 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::resource('user', 'Api\UserController');
+Route::get('/user', function (Request $request) {
+    return $request->user();
+});
