@@ -7,8 +7,8 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Edit your user.</div>
                     <div class="panel-body">
-                        <form class="form-horizontal" role="form" method="PATCH" action="{{ url('/user') }}">
-
+                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/user') }}">
+                            {!! method_field('patch') !!}
                             @include('partials.user.formFields', $model)
 
                             <div class="form-group">
