@@ -7,7 +7,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Edit your user.</div>
                     <div class="panel-body">
-                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/user') }}">
+                        <form class="form-horizontal" role="form" method="POST" action="{{ route('user.update', $model) }}">
                             {!! method_field('patch') !!}
                             @include('partials.user.formFields', $model)
 
