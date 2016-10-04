@@ -111,6 +111,21 @@ class Character extends Model
         'lastModified'      =>  'timestamp'
     ];
 
+    public function classes()
+    {
+        return $this->classes;
+    }
+
+    public function races()
+    {
+        return $this->races;
+    }
+
+    public function genders()
+    {
+        return $this->genders;
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
