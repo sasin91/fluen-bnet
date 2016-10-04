@@ -17,7 +17,7 @@
                             <!-- Current characters -->
                             @if($user->characters->isEmpty())
                                 <p class="m-b-none">
-                                    You have not created any characters.
+                                    {{ trans('home.characters.none') }}
                                 </p>
                             @else
                                 <table class="table table-borderless m-b-none">

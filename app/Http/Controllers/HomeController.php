@@ -9,20 +9,21 @@ use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
     /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param Request $request
+     * @return View|\Illuminate\Http\RedirectResponse
      */
-    public function welcome(Request $request) : View
+    public function welcome(Request $request)
     {
-        $user = $request->user()->load('characters');
+        $user = $request->user();
 
         if (empty($user->email) || empty($user->name))
         {
-            alert()->info('Just a few things before we get started.', 'Welcome');
-            return view('social.user.finish', compact('user'));
+            $transPath = 'home.battleNetUser.finalize';
+            alert()->info(trans("$transPath.message"), trans("$transPath.title"));
+            return view('home.user.finalize');
         }
 
+        $user->load('characters');
         return view('home.welcome', compact('user'));
     }
 
