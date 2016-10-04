@@ -5,12 +5,6 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "type": "project",
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://spark-satis.laravel.com"
-        }
-    ],
     "require": {
         "php": ">=7.0.4",
         "laravel/framework": "5.3.*",
@@ -41,7 +35,9 @@
         "symfony/css-selector": "3.1.*",
         "symfony/dom-crawler": "3.1.*",
         "laracasts/generators": "^1.1",
-        "laravel/homestead": "^3.0"
+        "laravel/homestead": "^3.0",
+        "mpociot/laravel-test-factory-helper": "^0.3.1",
+        "spatie/laravel-collection-macros": "^1.4"
     },
     "autoload": {
         "classmap": [
