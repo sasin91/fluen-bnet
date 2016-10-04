@@ -13,9 +13,12 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\SomeEvent' => [
-            'App\Listeners\EventListener',
-        ],
+        'eloquent.activated: App\User'   =>  ['App\Listeners\ActivationEventsListener@onUserActivated'],
+
+        'eloquent.activating: *'   =>  ['App\Listeners\ActivationEventsListener@onActivating'],
+        'eloquent.activated: *'   =>  ['App\Listeners\ActivationEventsListener@onActivated'],
+        'eloquent.deactivating: *'   =>  ['App\Listeners\ActivationEventsListener@onDeactivating'],
+        'eloquent.deactivated: *'   =>  ['App\Listeners\ActivationEventsListener@onDeactivated'],
     ];
 
     /**

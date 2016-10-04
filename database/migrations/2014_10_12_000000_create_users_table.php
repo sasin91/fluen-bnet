@@ -19,7 +19,9 @@ class CreateUsersTable extends Migration
             $table->string('battleTag')->default('');
             $table->string('name')->default('');
             $table->string('email')->default('');
+            $table->boolean('confirmed')->default(false);
             $table->string('password')->default('');
+            $table->boolean('activated')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });
