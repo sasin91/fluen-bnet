@@ -26,9 +26,4 @@ class HomeController extends Controller
         $user->load('characters');
         return view('home.welcome', compact('user'));
     }
-
-    public function api() : View
-    {
-        return view('home.api.dashboard');
-    }
 }
