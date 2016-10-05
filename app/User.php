@@ -13,10 +13,11 @@ use Spatie\Permission\Traits\HasRoles;
  * @package App
  *
  * @method static User firstOrCreate(array $attributes = []) @see Illuminate/Database/Eloquent/Builder
+ * @method static User firstOrFail(array $attributes = []) @throws \Illuminate\Database\Eloquent\ModelNotFoundException @see Illuminate/Database/Eloquent/Builder
  */
 class User extends Authenticatable
 {
-    use Notifiable, HasApiTokens, HasRoles;
+    use Notifiable, HasApiTokens, HasRoles, Activatable, Confirmable;
 
     /**
      * The attributes that are mass assignable.

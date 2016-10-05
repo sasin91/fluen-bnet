@@ -11,7 +11,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        //$this->authorizeResource(User::class);
+        $this->authorizeResource(User::class);
     }
 
     /**
@@ -21,7 +21,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return User::count();
     }
 
     /**
@@ -48,44 +48,47 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  User $model
+     * @param  User $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $model)
+    public function show(User $user)
     {
-        //
+        $user->load('characters');
+        return view('user.show', compact('user'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  User $model
+     * @param  User $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $model)
+    public function edit(User $user)
     {
-        return view('user.edit', compact('model'));
+        return view('user.edit', compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  User $model
+     * @param  User $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $model)
+    public function update(Request $request, User $user)
     {
-        //
+        abort_unless($user->update($request->all()), trans('error.generic'));
+
+        return redirect()->route('user.show', $user)->with('status', trans('user.updated'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  User $model
+     * @param  User $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $model)
+    public function destroy(User $user)
     {
         //
     }
