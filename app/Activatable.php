@@ -14,7 +14,7 @@ use App\Scopes\ActivatingScope;
  * @method static \Illuminate\Database\Eloquent\Builder withDeactivated Macro
  * @method static \Illuminate\Database\Eloquent\Builder onlyDeactivated Macro
  *
- * @property Activation activation
+ * @property Token activation
  */
 trait Activatable
 {
@@ -33,7 +33,7 @@ trait Activatable
      */
     public function activation()
     {
-        return $this->morphOne(Activation::class, 'activatable');
+        return $this->morphOne(Token::class, 'tokenable');
     }
 
     /**
