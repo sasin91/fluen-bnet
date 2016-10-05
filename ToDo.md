@@ -1,3 +1,5 @@
+Consider making Token an optional dependency of activatable. 
+
 Live chat
     - That integrates with L5.3 Notifications
     - perhaps integrates with Slack
