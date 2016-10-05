@@ -26,7 +26,8 @@
         "laravel/socialite": "^2.0",
         "socialiteproviders/manager": "^2.1",
         "socialiteproviders/generators": "^2.0",
-        "spatie/laravel-permission": "^1.5"
+        "spatie/laravel-permission": "^1.5",
+        "laravolt/avatar": "^1.8"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
