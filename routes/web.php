@@ -13,15 +13,15 @@
 
 Route::get('/', 'WelcomeController@greet');
 
+
 Route::auth();
 
-Route::get('auth/battleNet', 'Auth\Social\BattleNetController@redirectToProvider');
-Route::get('auth/battleNet/callback', 'Auth\Social\BattleNetController@handleProviderCallback');
-
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('auth/battleNet', 'Auth\Social\BattleNetController@redirectToProvider');
+    Route::get('auth/battleNet/callback', 'Auth\Social\BattleNetController@handleProviderCallback');
+
     Route::group(['prefix' => 'home'], function () {
         Route::get('/', 'HomeController@welcome')->name('home');
-        Route::get('/api', 'HomeController@api');
     });
 
     Route::resource('user', 'UserController');

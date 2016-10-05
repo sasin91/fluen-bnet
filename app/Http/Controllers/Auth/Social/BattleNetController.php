@@ -55,7 +55,7 @@ class BattleNetController extends SocialController
      */
     protected function lookupOrCreateUserFrom(SocialiteUser $abstractUser)
     {
-        $user = User::firstOrCreate([
+        $user = User::firstOrFail([
             'uid'       =>  $abstractUser->getId(),
             'battleTag' =>  $abstractUser->getNickname()
         ]);
