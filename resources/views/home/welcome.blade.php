@@ -8,62 +8,10 @@
                 <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h1>Characters</h1>
-                        </div>
-
-                        <div class="panel-body">
-                            <!-- Current characters -->
-                            @if($user->characters->isEmpty())
-                                <p class="m-b-none">
-                                    {{ trans('home.characters.none') }}
-                                </p>
-                            @else
-                                <table class="table table-borderless m-b-none">
-                                    <thead>
-                                        <th>Avatar</th>
-                                        <th>Name</th>
-                                        <th>Realm</th>
-                                        <th>Level</th>
-                                        <th>Guild</th>
-                                    </thead>
-
-                                    <tbody>
-                                        @foreach($user->characters->groupBy('realm') as $realm => $characters)
-                                            @foreach($characters as $character)
-                                                <tr>
-                                                    <!-- Avatar -->
-                                                    <td style="vertical-align: middle;">
-                                                        <img src="{{ $character->thumbnail }}" class="img-responsive" alt="Avatar">
-                                                    </td>
-
-                                                    <!-- Name -->
-                                                    <td style="vertical-align: middle;">
-                                                        {{ $character->name }}
-                                                    </td>
-
-                                                    <!-- Realm -->
-                                                    <td style="vertical-align: middle;">
-                                                        {{ $character->realm }}
-                                                    </td>
-
-                                                    <!-- Level -->
-                                                    <td style="vertical-align: middle;">
-                                                        {{ $character->level }}
-                                                    </td>
-
-                                                    <!-- Guild -->
-                                                    <td style="vertical-align: middle;">
-                                                        {{ $character->guild }}
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            @endif
-                        </div>
+                    <div class="btn-group-vertical">
+                        <a type="button" href="{{ route('user.show', $user) }}" class="btn btn-default">My Account</a>
+                        <button type="button" class="btn btn-default">API</button>
+                        <a href="{{ url('/auth/battleNet') }}" type="button" class="btn btn-default">Attach Battle.Net Account</a>
                     </div>
                 </div>
             </div>
