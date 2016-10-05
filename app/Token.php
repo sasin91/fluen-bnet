@@ -3,9 +3,20 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Activation extends Model
+/**
+ * Class Token
+ * @package App
+ *
+ * @property string token
+ */
+class Token extends Model
 {
+    use SoftDeletes;
+
+    public $timestamps = false;
+
     /**
      * The "booting" method of the model.
      *
@@ -13,23 +24,11 @@ class Activation extends Model
      */
     protected static function boot()
     {
-        static::creating(function (Activation $model) {
+        static::creating(function (Token $model) {
             $model->freshToken();
         });
 
         parent::boot();
-    }
-
-    /**
-     * @param Model|Activatable $model
-     * @return static
-     */
-    public static function generate(Model $model)
-    {
-        return static::create([
-            'activatable_type'  =>  get_class($model),
-            'activatable_id'    =>  $model->getKey()
-        ]);
     }
 
     /**
@@ -41,11 +40,9 @@ class Activation extends Model
     }
 
     /**
-     * The activatable relationship
-     *
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
-    public function activatable()
+    public function tokenable()
     {
         return $this->morphTo();
     }

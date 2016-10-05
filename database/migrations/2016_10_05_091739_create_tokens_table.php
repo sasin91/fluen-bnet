@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateActivationsTable extends Migration
+class CreateTokensTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,12 @@ class CreateActivationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('activations', function (Blueprint $table) {
+        Schema::create('tokens', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('activatable_type');
-            $table->integer('activatable_id');
+            $table->string('tokenable_type');
+            $table->integer('tokenable_id');
             $table->string('token');
-            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -28,6 +28,6 @@ class CreateActivationsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('activations');
+        Schema::drop('tokens');
     }
 }
