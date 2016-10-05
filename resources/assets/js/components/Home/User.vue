@@ -122,7 +122,7 @@
                 this.userForm.uid = this.user.uid;
                 this.userForm.battleTag = this.user.battleTag;
                 this.persistUser(
-                        'patch', '/api/user/'+this.user.id,
+                        'patch', '/user/'+this.user.id,
                         this.userForm
                 );
             },
