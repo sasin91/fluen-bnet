@@ -13,3 +13,5 @@ Translation
     - Change by menu ( app()->setLocale() ? )
     
 Get a Bootstrap 3 theme and stick with it.    
+
+Implement Query caching,  wattson / rememberable 
